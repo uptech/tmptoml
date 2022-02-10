@@ -1,0 +1,32 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: faktory-worker
+spec:
+  clusterIP: None
+  selector:
+    app: faktory-worker
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: faktory-worker
+  labels:
+    app: faktory-worker
+spec:
+  replicas: {{replicas}}
+  selector:
+    matchLabels:
+      app: faktory-worker
+  template:
+    metadata:
+      labels:
+        app: faktory-worker
+    spec:
+      containers:
+        - name: faktory-worker
+          image: {{image}}
+          env:
+            - name: NODE_ENV
+              value: {{nodeEnv}}

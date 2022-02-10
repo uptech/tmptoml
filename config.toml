@@ -1,0 +1,16 @@
+[qa]
+nodeEnv="qa"
+[qa.system1]
+replicas=2
+image="123.dkr.ecr.us-west-2.amazonaws.com/system1:latest"
+[qa.system2]
+replicas=2
+image="123.dkr.ecr.us-west-2.amazonaws.com/system2:latest"
+[production]
+nodeEnv="production"
+[production.system1]
+replicas=2
+image="456.dkr.ecr.us-west-2.amazonaws.com/system1:latest"
+[production.system2]
+replicas=2
+image="456.dkr.ecr.us-west-2.amazonaws.com/system2:latest"
