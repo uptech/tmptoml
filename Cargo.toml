@@ -3,6 +3,8 @@ name = "tmptoml"
 version = "0.1.0"
 edition = "2021"
 exclude = ["config.toml", "template.yaml", ".git", ".gitignore"]
+description = "Renders Tera templates using a toml config file as the variable source."
+license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
