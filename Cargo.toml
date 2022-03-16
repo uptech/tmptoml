@@ -8,5 +8,4 @@ edition = "2021"
 [dependencies]
 structopt = "0.3.23"
 tera = "1"
-lazy_static = "1.4.0"
 toml = "0.5"

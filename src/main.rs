@@ -9,11 +9,10 @@
 // //
 // // So any code that fits the above responsibilities should live within this
 // // module.
-mod tmptoml;
 
 use std::path::PathBuf;
 use structopt::StructOpt;
-use tmptoml::tmptoml::TmpTomlErr;
+use tmptoml;
 
 #[derive(StructOpt, Debug)]
 #[structopt(name = "tmptoml", about = "Parse toml files for templated solutions")]
@@ -35,13 +34,13 @@ pub struct ApplicationArguments {
     pub secondary_group_id: String,
 }
 
-fn run() -> Result<String, TmpTomlErr> {
+fn run() -> Result<String, tmptoml::TmpTomlErr> {
     let opt: ApplicationArguments = ApplicationArguments::from_args();
     let config_file_path: PathBuf = opt.config.clone();
     let template_file_path: PathBuf = opt.template.clone();
     let group_id: String = opt.group_id.clone();
     let sec_group_id: String = opt.secondary_group_id.clone();
-    return tmptoml::tmptoml::execute_template(
+    return tmptoml::render_template(
         &config_file_path,
         &template_file_path,
         group_id,
@@ -52,19 +51,19 @@ fn main() {
     match run() {
         Ok(output) => println!("{}", output),
         Err(err) => match err {
-            TmpTomlErr::File(file_error) => println!(
+            tmptoml::TmpTomlErr::File(file_error) => println!(
                 "ERROR: There was an issue reading the config or template file. Reason: {:?}",
                 file_error
             ),
-            TmpTomlErr::GroupNotFound(key_id) => println!(
+            tmptoml::TmpTomlErr::GroupNotFound(key_id) => println!(
                 "ERROR: Specified group_id or secondary_group_id ({:?}) could not be found in the config file.",
                 key_id
             ),
-            TmpTomlErr::Config(config_error) => println!(
+            tmptoml::TmpTomlErr::Config(config_error) => println!(
                 "ERROR: The specified config file could not be parsed. Reason: {:?}",
                 config_error
             ),
-            TmpTomlErr::Render(render_error) => println!(
+            tmptoml::TmpTomlErr::Render(render_error) => println!(
                 "ERROR: Unable to render the specified template. Reason: {:?}",
                 render_error
             ),

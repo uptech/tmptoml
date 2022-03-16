@@ -669,7 +669,6 @@ dependencies = [
 name = "tmptoml"
 version = "0.1.0"
 dependencies = [
- "lazy_static",
  "structopt",
  "tera",
  "toml",
