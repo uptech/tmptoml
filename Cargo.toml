@@ -1,10 +1,16 @@
 [package]
 name = "tmptoml"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 exclude = ["config.toml", "template.yaml", ".git", ".gitignore"]
 description = "Renders Tera templates using a toml config file as the variable source."
 license = "MIT"
+homepage = "https://github.com/uptech/tmptoml"
+repository = "https://github.com/uptech/tmptoml"
+readme = "README.md"
+keywords = ["tera", "template", "toml", "tera-template", "tools"]
+categories = ["command-line-utilities", "development-tools::cargo-plugins"]
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]

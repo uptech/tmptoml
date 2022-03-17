@@ -1,6 +1,6 @@
 # TmpToml
 
-A Rust CLI tool for parsing config toml files to use in templated files.
+Renders Tera templates using a toml config file as the variable source.
 
 ## Installation
 
