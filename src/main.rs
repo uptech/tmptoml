@@ -40,6 +40,7 @@ fn run() -> Result<String, tmptoml::TmpTomlErr> {
     let template_file_path: PathBuf = opt.template.clone();
     let group_id: String = opt.group_id.clone();
     let sec_group_id: String = opt.secondary_group_id.clone();
+
     return tmptoml::render_template(
         &config_file_path,
         &template_file_path,

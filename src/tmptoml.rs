@@ -1,4 +1,3 @@
-
 use std::{
     fs,
     path::{Path, PathBuf},
@@ -6,8 +5,8 @@ use std::{
 use tera::{Context, Tera};
 use toml::Value;
 
-type Config = std::collections::HashMap<String, Group>;
-type Group = std::collections::HashMap<String, toml::Value>;
+pub type Config = std::collections::HashMap<String, Group>;
+pub type Group = std::collections::HashMap<String, toml::Value>;
 
 #[derive(Debug)]
 pub enum TmpTomlErr {
@@ -113,6 +112,12 @@ fn flatten_sections(
     return flattened;
 }
 
+pub fn parse_toml_to_config(path: Option<&str>) -> Result<Config, TmpTomlErr> {
+    let file_content = read_file(path)?;
+    let toml_config: Config = toml::from_str(&file_content)?;
+    return Ok(toml_config);
+}
+
 pub fn render_template(
     config_file_path: &PathBuf,
     template_file_path: &PathBuf,
@@ -120,28 +125,24 @@ pub fn render_template(
     sec_group_id: String,
 ) -> Result<String, TmpTomlErr> {
     let debug_print = false;
-
-    let config_file: String = read_file(config_file_path.to_str())?;
-    let config: Config =
-        toml::from_str(config_file.as_str()).map_err(|toml_err| TmpTomlErr::Config(toml_err))?;
-
+    let toml_config = parse_toml_to_config(config_file_path.to_str())?;
     if debug_print {
-        println!("Config File:\n{:?}\n", config);
+        println!("Config File:\n{:?}\n", toml_config);
     }
 
-    if !config.contains_key(&group_id) {
+    if !toml_config.contains_key(&group_id) {
         return Err(TmpTomlErr::GroupNotFound(group_id));
     }
 
-    if !config[&group_id].contains_key(&sec_group_id) {
+    if !toml_config[&group_id].contains_key(&sec_group_id) {
         return Err(TmpTomlErr::GroupNotFound(sec_group_id));
     }
 
-    let group_section = &config[&group_id];
-    let sec_group_section = &config[&group_id][&sec_group_id];
+    let group_section = &toml_config[&group_id];
+    let sec_group_section = &toml_config[&group_id][&sec_group_id];
 
     if debug_print {
-        println!("Config File:\n{:?}\n", config);
+        println!("Cofnig File:\n{:?}\n", toml_config);
         println!("Group\n{:?}\n", &group_id);
         println!("Group Section\n{:?}\n", &group_section);
         println!("Secondary Group Group\n{:?}\n", &sec_group_id);
