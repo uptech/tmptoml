@@ -30,3 +30,5 @@ spec:
           env:
             - name: NODE_ENV
               value: {{nodeEnv}}
+            - name: IS_SHARED
+              value: {{isShared}}

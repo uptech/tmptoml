@@ -92,19 +92,27 @@ fn render_tera_template(
 
 fn flatten_sections(
     group_section: &std::collections::HashMap<String, Value>,
+    secondary_group_section_name: &String,
 ) -> std::collections::HashMap<String, String> {
     let mut flattened: std::collections::HashMap<String, String> = std::collections::HashMap::new();
 
     group_section.iter().for_each(|(key, value)| {
-        if let toml::Value::Table(table) = value {
-            table.iter().for_each(|(key, value)| {
+        if key == secondary_group_section_name {
+            if let toml::Value::Table(table) = value {
+                table.iter().for_each(|(key, value)| {
+                    if !flattened.contains_key(key) {
+                        flattened.insert(key.to_string(), value.to_string());
+                    }
+                });
+            }
+        } else {
+            if let toml::Value::Table(_) = value {
+                //Skip all other tables in the group section
+                //TODO: Add support for nested groups
+            } else {
                 if !flattened.contains_key(key) {
                     flattened.insert(key.to_string(), value.to_string());
                 }
-            });
-        } else {
-            if !flattened.contains_key(key) {
-                flattened.insert(key.to_string(), value.to_string());
             }
         }
     });
@@ -158,7 +166,10 @@ pub fn render_template(
         }
     }
 
-    let template_values = flatten_sections(group_section);
+    let template_values = flatten_sections(group_section, &sec_group_id);
+    if debug_print {
+        println!("Template Values:\n{:?}\n", template_values);
+    }
     let tera_context = build_tera_context(template_values);
     let rendered_template = render_tera_template(template_file_path.as_path(), tera_context)?;
     return Ok(rendered_template);

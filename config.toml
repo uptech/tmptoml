@@ -3,9 +3,11 @@ nodeEnv="qa"
 [qa.system1]
 replicas=2
 image="123.dkr.ecr.us-west-2.amazonaws.com/system1:latest"
+isShared=true
 [qa.system2]
 replicas=2
 image="123.dkr.ecr.us-west-2.amazonaws.com/system2:latest"
+isShared=false
 [production]
 nodeEnv="production"
 [production.system1]
