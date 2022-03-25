@@ -13,6 +13,8 @@ nodeEnv="production"
 [production.system1]
 replicas=2
 image="456.dkr.ecr.us-west-2.amazonaws.com/system1:latest"
+isShared=false
 [production.system2]
 replicas=2
 image="456.dkr.ecr.us-west-2.amazonaws.com/system2:latest"
+isShared=false
