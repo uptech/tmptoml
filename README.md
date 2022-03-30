@@ -4,6 +4,24 @@ Renders Tera templates using a toml config file as the variable source.
 
 ## Installation
 
+### macOS
+
+To install on macOS we provide a [Homebrew](http://brew.sh) tap which provides
+the `tmptoml` formula. You can use it by doing the following:
+
+#### Add the Tap
+
+```
+brew tap "uptech/homebrew-oss"
+```
+
+#### brew install
+
+```
+brew install uptech/oss/tmptoml
+```
+
+### Build from Source
 First and foremost you will need to install Rust, recommended via Homebrew:
 
 ```sh
