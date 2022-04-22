@@ -87,7 +87,7 @@ TmpToml renders the template file to STDOUT.
 `TmpToml` is Copyright © 2022 Uptech Works LLC. It is free software, and
 may be redistributed under the terms specified in the LICENSE file.
 
-## About <img src="http://uptechstudio.com/img/logo.png" alt="uptech studio" height="48">
+## About <img src="https://camo.githubusercontent.com/506609ce4a59f16787073c30be5778578ef81e4d0ea3c613c9d21c4f715e6435/68747470733a2f2f75706c6f6164732d73736c2e776562666c6f772e636f6d2f3632323262316661663833643035363639636136333937322f3632346463326465613462626535646431643231613034635f75707465636873747564696f2d6c6f676f2e737667" alt="uptech studio" height="48">
 
 `TmpToml` is maintained and funded by [Uptech Studio][uptechstudio], a
 software design & development agency & consultancy.
